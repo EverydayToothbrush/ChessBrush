@@ -1,10 +1,34 @@
-/**
- * Created by 3pikphail345 on 6/25/17.
- */
-public abstract class tile {
-    int tileCoordinate;
+package com.chess.engine.board;
 
-    tile(int tileCoordinate) {
+import com.chess.engine.pieces.Piece;
+import com.google.common.collect.ImmutableMap;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class tile {
+
+
+    protected final int tileCoordinate;
+
+    private static final Map<Integer, EmptyTile> EMPTY_TILES = createAllPossibleEmptyTiles();
+
+    private static Map<Integer, EmptyTile> createAllPossibleEmptyTiles() {
+
+        final Map<Integer, EmptyTile> emptyTileMap = new HashMap<>();
+
+        for(int i = 0; i < 64; i++) {
+            emptyTileMap.put(i, new EmptyTile(i));
+        }
+
+        return ImmutableMap.copyOf(emptyTileMap);
+    }
+
+    public static tile createTile(final int tileCoordinate, final Piece piece) {
+        return piece != null ? new OccupiedTile(tileCoordinate, piece) : EMPTY_TILES.get(tileCoordinate);
+    }
+
+    private tile(int tileCoordinate) {
         this.tileCoordinate = tileCoordinate;
     }
 
@@ -32,7 +56,7 @@ public abstract class tile {
 
     public static final class OccupiedTile extends tile {
 
-        Piece pieceOnTile;
+        private final Piece pieceOnTile;
 
         OccupiedTile(int tileCoordinate, Piece pieceOnTile) {
             super(tileCoordinate);
