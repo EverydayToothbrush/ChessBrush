@@ -19,18 +19,18 @@ public class Board {
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
 
-        //final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
-        //final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
+        final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
+        final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
     }
 
 
-    /*private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
+    private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();
         for(final Piece piece : pieces) {
             legalMoves.addAll(piece.calculateLegalMoves(this));
         }
         return ImmutableList.copyOf(legalMoves);
-    }*/
+    }
 
 
     @Override
